@@ -1,8 +1,10 @@
-import { Body, Controller, Get, HttpCode, HttpStatus, Request, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, HttpStatus, Request, Post } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+
 import { AuthService } from './auth.service';
+import { Public } from './auth.guard';
+
 import { SignInDTO } from './dto/auth.dto';
-import { AuthGuard } from './auth.guard';
 
 @ApiTags("Quyền")
 @Controller('auth')
@@ -13,6 +15,7 @@ export class AuthController {
 
     }
 
+    @Public()
     @HttpCode(HttpStatus.OK)
     @Post('login')
     signIn(@Body() siginInDTO: SignInDTO) {
@@ -20,8 +23,7 @@ export class AuthController {
     }
 
     @HttpCode(HttpStatus.OK)
-    @UseGuards(AuthGuard)
-    @ApiBearerAuth()
+    @ApiBearerAuth('X-Token-Bearer')
     @Get('profile')
     getProfile(@Request() req: any) {
         console.log('req = ', req);

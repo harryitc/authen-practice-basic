@@ -1,6 +1,8 @@
 import { Module } from '@nestjs/common';
-import { AuthModule } from './auth/auth.module';
-import { UsersModule } from './users/users.module';
+import { APP_GUARD } from '@nestjs/core';
+
+import { AuthGuard, AuthModule } from '@modules/auth';
+import { UsersModule } from '@modules/users';
 
 @Module({
   imports: [
@@ -8,6 +10,12 @@ import { UsersModule } from './users/users.module';
     UsersModule,
   ],
   controllers: [],
-  providers: [],
+  providers: [
+
+    {
+      provide: APP_GUARD,
+      useClass: AuthGuard,
+    }
+  ],
 })
 export class AppModule {}
