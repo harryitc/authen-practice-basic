@@ -8,8 +8,8 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   const config = new DocumentBuilder()
-    .setTitle('Tài liệu Apis')
-    .setDescription('Danh sách phân quyền')
+    .setTitle('Authen Practice Basic')
+    .setDescription('Tài liệu Apis')
     .setVersion('1.0')
     .addBearerAuth({
       type: 'http',
