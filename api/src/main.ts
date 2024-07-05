@@ -15,24 +15,7 @@ async function bootstrap() {
   app.setGlobalPrefix('api');
   app.useGlobalPipes(new ValidationPipe());
 
-  // setupSwagger(process.env.DOCUMENT_PATH ?? '_docs', app);
-
-  const config = new DocumentBuilder()
-    .setTitle('Authen Practice Basic')
-    .setDescription('Tài liệu Apis')
-    .setVersion('1.0')
-    .addBearerAuth({
-      type: 'http',
-      bearerFormat: 'JWT',
-      in: 'header',
-      scheme: 'bearer',
-    },
-    'X-Token-Bearer'
-  )
-    .build();
-  const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup(process.env.DOCUMENT_PATH ?? '_docs', app, document);
-
+  setupSwagger(process.env.DOCUMENT_PATH ?? '_docs', app);
 
   await app.listen(3000);
 }
